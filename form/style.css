@@ -1,0 +1,24 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+form {
+    background-color: white;
+    text-align: center;
+}
+table {
+    font-style: italic;
+    text-align: left;    
+}
+table th{
+    color:darkblue;
+    
+}
+table td{
+    color: darkblue;
+    
+}
+input {
+    font-family: 'Times New Roman', Times, serif;
+    font-style: italic;
+}

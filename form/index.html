@@ -1,0 +1,86 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <a href="#">Beranda -</a>
+    <a href="#">Registrasi -</a>
+    <a href="#">Aplikasi -</a>
+    <a href="#">Profil </a>
+    <form action="">
+        <center>
+        <h3>Formulir Registrasi</h3>            
+        <p>Silahkan mengisi data dibawah ini</p>
+        
+        <table>            
+            <tr>
+              <th>Nama      </th>
+              <td>:<input type="text" name="nama" required placeholder="nama lengkap anda"></td>
+            </tr>
+            <tr>
+                <th>Alamat      </th>
+                <td>:<input type="text" name="alamat"></td>
+            </tr>
+            <tr>
+              <th>Tanggal Lahir     </th>
+              <td>:
+                <label for="Tanggal"></label>
+                <select name="hari" id="">
+                    <option value="">day</option>
+                </select>
+                <select name="bulan" id="">
+                    <option value="">month</option>
+                </select>
+                <select name="tahun" id="">
+                    <option value="">year</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <th>Jenis Kelamin</th>
+              <td>:
+                <input type="radio" name="jenis_kelamin" value="Cowok" required> Laki-laki
+                <input type="radio" name="jenis_kelamin" value="Cewek" required> Perempuan
+              </td>
+            </tr>
+            <tr>
+              <th>Nomor telepon</th>
+              <td>:<input type="text" name="no_telp" placeholder="+628123456789"></td>              
+            </tr>
+            <tr>
+              <th>URL</th>
+              <td>:<input type="text" name="url" placeholder="www.example.com"></td>
+            </tr>
+            <tr>
+              <th>Email</th>            
+              <td>:<input type="email" placeholder="example@yahoo.com"></td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td>:<input type="password"></td>
+            </tr>
+            <tr>
+                <th>Kecamatan</th>
+                <td>:
+                    <select name="kecamatan" id="">
+                        <option value=""> </option>                        
+                        <option value="Kramat Jati">Kramat Jati</option>
+                        <option value="Cipayung">Cipayung</option>
+                        <option value="Cibinong">Cibinong</option>
+                        <option value="Cibubur">Cibubur</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+              <td ><input type="submit">
+              <input type="reset">
+              </td>
+            </tr>
+          </table>
+        </center>
+    </form>
+</body>
+</html>
