@@ -57,63 +57,77 @@ echo"<a href='login.php'>logout</a>";
 </body>
 </html>
 <script>
-    var timeleft = getTimeFromCookie() || 30;
+    // Tentukan durasi countdown (dalam detik)
+    var duration = 30;
     var countdownElemen = document.getElementById('countdown');
 
-    // Jalankan timer
-    var downloadTimer = setInterval(function() {
+    // Fungsi untuk mendapatkan nilai cookie berdasarkan namanya
+    function getCookie(name) {
+        const cookie = document.cookie.split('; ').find(row => row.startsWith(name + '='));
+        return cookie ? cookie.split('=')[1] : null;
+    }
+
+    // Fungsi untuk mengatur cookie dengan nama, nilai, dan durasi waktu (dalam detik)
+    function setCookie(name, value, seconds) {
+        let date = new Date();
+        date.setTime(date.getTime() + (seconds * 1000));
+        document.cookie = `${name}=${value}; expires=${date.toUTCString()}; path=/`;
+    }
+
+    // Cek apakah cookie "endtime" sudah ada
+    var endTime = getCookie('endtime');
+
+    if (!endTime) {
+        // Jika cookie tidak ada, atur waktu akhir baru
+        var newEndTime = new Date().getTime() + (duration * 1000);
+        setCookie('endtime', newEndTime, duration);
+        endTime = newEndTime;
+    } else {
+        endTime = parseInt(endTime);
+    }
+
+    function updateTimer() {
+        var now = new Date().getTime();
+        var timeleft = Math.max(0, Math.floor((endTime - now) / 1000));
+
         if (timeleft <= 0) {
-            clearInterval(downloadTimer);
             countdownElemen.innerHTML = "Waktu habis";
-            window.location.href = "sesi4.php"; // Logout otomatis
+            clearInterval(timerInterval);
+            window.location.href = "sesi4.php"; // Redirect saat waktu habis
         } else {
             countdownElemen.innerHTML = timeleft + " detik lagi";
         }
-        timeleft -= 1;
-        // Simpan waktu tersisa ke cookie setiap detik
-        document.cookie = "timeleft=" + timeleft + "; max-age=30; path=/";
-    }, 1000);
-
-    // Fungsi untuk mengambil sisa waktu dari cookie
-    function getTimeFromCookie() {
-        const cookie = document.cookie.split('; ').find(row => row.startsWith('timeleft='));
-        return cookie ? parseInt(cookie.split('=')[1]) : null;
     }
 
+    // Update countdown setiap detik
+    var timerInterval = setInterval(updateTimer, 1000);
+
+    // Jalankan timer saat halaman dimuat
+    updateTimer();
+
     function setTheme(theme) {
-            document.body.className = theme;
-            document.cookie = "theme=" + theme + "; max-age=15"; // Cookie berlaku selama 15 detik
-        //     if(sisawaktu <= 0){
-           
-        //     document.getElementById('countdown').innerHTML = "waktu habis";
-    
-        // } else {
-        //     waktuElemen.innerHTML = sisawaktu + " detik lagi";
-        // }
-        // sisawaktu -= 1;
+        document.body.className = theme;
+        setCookie("theme", theme, 15); // Simpan tema selama 15 detik
+    }
+
+    function getThemeFromCookie() {
+        return getCookie('theme');
+    }
+
+    window.onload = function() {
+        const savedTheme = getThemeFromCookie();
+        if (savedTheme) {
+            document.body.className = savedTheme;
         }
 
-        // Fungsi untuk mengambil tema dari cookie
-        function getThemeFromCookie() {
-            const cookie = document.cookie.split('; ').find(row => row.startsWith('theme='));
-            return cookie ? cookie.split('=')[1] : null;
-        }
-
-        // Mengatur tema sesuai cookie saat halaman dimuat
-        window.onload = function() {
-            const savedTheme = getThemeFromCookie();
-            if (savedTheme) {
-                document.body.className = savedTheme;
-            }
-
-            // Mengubah background otomatis setiap 3 detik setelah 15 detik
-            setTimeout(() => {
-                const themes = ['light', 'dark', 'blue'];
-                let index = 0;
-                setInterval(() => {
-                    document.body.className = themes[index];
-                    index = (index + 1) % themes.length;
-                }, 3000);
-            }, 15000);
-        }
+        // Ubah tema otomatis setelah 15 detik
+        setTimeout(() => {
+            const themes = ['light', 'dark', 'blue'];
+            let index = 0;
+            setInterval(() => {
+                document.body.className = themes[index];
+                index = (index + 1) % themes.length;
+            }, 3000);
+        }, 15000);
+    }
 </script>
