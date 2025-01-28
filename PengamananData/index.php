@@ -124,20 +124,21 @@ if (!$result) {
         <a href="noteAdd.php" class="btn"><i class="uil uil-plus"></i> Tambah Catatan</a>
         <a href="logout.php" class="btn-logout">Logout</a>        
         <div class="notes">            
-            <?php while ($row = mysqli_fetch_assoc($result)) { ?>
-                <div class="note">
-                    <h3><?= htmlspecialchars($row['judul']); ?></h3>
-                    <p><?= nl2br(htmlspecialchars($row['isi'])); ?></p>
-                    <small><?= $row['waktu']; ?></small>
-                    <div class="note-actions">
-                    <a href="noteEdit.php?id=<?= $row['id_judul']; ?>" title="Edit">
-                    <i class="uil uil-edit"></i>
-                    </a>
-                    <a href="noteDelete.php?id=<?= $row['id_judul']; ?>" class="delete" title="Delete" onclick="return confirm('Are you sure you want to delete this note?');">
-                    <i class="uil uil-trash-alt"></i>
-                    </a>
-                </div>
-            <?php } ?>
+        <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+    <div class="note">
+        <h3><?= htmlspecialchars($row['judul']); ?></h3>
+        <p><?= nl2br(htmlspecialchars($row['isi'])); ?></p>
+        <small><?= $row['waktu']; ?></small>
+        <div class="note-actions">
+            <a href="noteEdit.php?id=<?= $row['id_judul']; ?>" title="Edit">
+                <i class="uil uil-edit"></i>
+            </a>
+            <a href="noteDelete.php?id=<?= $row['id_judul']; ?>" class="delete" title="Delete" onclick="return confirm('Are you sure you want to delete this note?');">
+                <i class="uil uil-trash-alt"></i>
+            </a>
+        </div>
+    </div> <!-- Pastikan div .note ditutup di sini -->
+<?php } ?>
         </div>
     </div>
 </body>
